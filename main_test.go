@@ -3,10 +3,25 @@ package main
 import (
 	"bytes"
 	"errors"
+	"io"
 	"os"
+	"path/filepath"
 	"testing"
 )
 
+func BenchmarkRun(b *testing.B) {
+	filenames, err := filepath.Glob("./testdata/benchmark/*.csv")
+	if err != nil {
+		b.Fatal(err)
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		if err := run(filenames, "avg", 2, io.Discard); err != nil {
+			b.Error(err)
+		}
+	}
+}
 func TestRun(t *testing.T) {
 	testcases := []struct {
 		name   string
