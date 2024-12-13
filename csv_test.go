@@ -92,12 +92,10 @@ func TestCSV2Float(t *testing.T) {
 				if !errors.Is(err, tc.expErr) {
 					t.Errorf("Expected error %q, got %q instead", tc.expErr, err)
 				}
-				return
-
 				if err != nil {
-					t.Errorf("Unexpected error: %q", err)
+					t.Errorf("Unexpected error: %q", err)	
 				}
-				
+				return
 			}
 			for i, exp := range tc.exp {
 				if res[i] != exp {
